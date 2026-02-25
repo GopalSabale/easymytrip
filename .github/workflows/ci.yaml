@@ -13,7 +13,8 @@ env:
   IMAGE_LOCAL_LATEST: easymytrip:latest
   IMAGE_DOCKERHUB: gopalsabale/easymytrip:${{ github.run_number }}
   IMAGE_DOCKERHUB_LATEST: gopalsabale/easymytrip:latest
-
+  IMAGE_ECR: 445842764710.dkr.ecr.ap-south-1.amazonaws.com/easymytrip:${{ github.run_number }}
+  IMAGE_ECR_LATEST: 445842764710.dkr.ecr.ap-south-1.amazonaws.com/easymytrip:latest
 jobs:
   build-test:
     name: Compile, Test & Package
@@ -109,3 +110,19 @@ jobs:
         run: |
           docker push ${{ env.IMAGE_DOCKERHUB }}
           docker push ${{ env.IMAGE_DOCKERHUB_LATEST }}
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Login to Amazon ECR
+        run: |
+          aws ecr get-login-password --region ${{ secrets.AWS_REGION }} \
+          | docker login --username AWS --password-stdin 445842764710.dkr.ecr.ap-south-1.amazonaws.com
+
+      - name: Push to Amazon ECR
+        run: |
+          docker push $IMAGE_ECR
+          docker push $IMAGE_ECR_LATEST
