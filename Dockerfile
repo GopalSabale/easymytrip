@@ -8,10 +8,10 @@ LABEL maintainer="satyam.pandely@example.com"
 RUN rm -rf /usr/local/tomcat/webapps/ROOT
 
 # Create a user for running the application
-RUN useradd -m bookmyplan
+RUN useradd -m easymytrip
 
 # Copy your JAR file into the webapps directory
-COPY ./target/bookmyplan*.jar /usr/local/tomcat/webapps/
+COPY ./target/easymytrip*.jar /usr/local/tomcat/webapps/
 
 # Expose the default Tomcat port
 EXPOSE 8080
