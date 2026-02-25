@@ -127,3 +127,13 @@ jobs:
         run: |
           docker push $IMAGE_ECR
           docker push $IMAGE_ECR_LATEST
+      - name: Cleanup Docker Images
+        if: always()
+        run: |
+          docker rmi ${{ env.IMAGE_LOCAL }} || true
+          docker rmi ${{ env.IMAGE_LOCAL_LATEST }} || true
+          docker rmi ${{ env.IMAGE_DOCKERHUB }} || true
+          docker rmi ${{ env.IMAGE_DOCKERHUB_LATEST }} || true
+          docker rmi ${{ env.IMAGE_ECR }} || true
+          docker rmi ${{ env.IMAGE_ECR_LATEST }} || true
+          docker image prune -f || true
