@@ -94,7 +94,8 @@ jobs:
           # Tag for Docker Hub
           docker tag ${{ env.IMAGE_LOCAL }} ${{ env.IMAGE_DOCKERHUB }}
           docker tag ${{ env.IMAGE_LOCAL }} ${{ env.IMAGE_DOCKERHUB_LATEST }}
-
+          docker tag ${{ env.IMAGE_LOCAL }} ${{ env.IMAGE_ECR }}
+          docker tag ${{ env.IMAGE_LOCAL }} ${{ env.IMAGE_ECR_LATEST }}
       - name: Scan Docker Image with Trivy
         uses: aquasecurity/trivy-action@0.20.0
         with:
