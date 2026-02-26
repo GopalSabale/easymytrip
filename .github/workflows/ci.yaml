@@ -43,7 +43,8 @@ jobs:
             echo "⬇️ Installing Maven $MAVEN_VERSION..."
             sudo yum update
             sudo yum install -y wget tar
-            cd /tmp
+            sudo yum install -y wget tar
+            sudo mkdir -p /opt/maven
             wget https://archive.apache.org/dist/maven/maven-3/$MAVEN_VERSION/binaries/apache-maven-$MAVEN_VERSION-bin.tar.gz
             sudo tar -xzf apache-maven-$MAVEN_VERSION-bin.tar.gz -C /opt/maven
             sudo ln -sf $MAVEN_BIN /usr/local/bin/mvn
