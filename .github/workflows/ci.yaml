@@ -42,7 +42,8 @@ jobs:
           else
             echo "⬇️ Installing Maven $MAVEN_VERSION..."
             sudo apt-get update
-            sudo dnf install -y wget tar
+            sudo apt-get update
+            sudo apt-get install -y wget tar
             cd /tmp
             wget https://archive.apache.org/dist/maven/maven-3/$MAVEN_VERSION/binaries/apache-maven-$MAVEN_VERSION-bin.tar.gz
             sudo tar -xzf apache-maven-$MAVEN_VERSION-bin.tar.gz -C /opt/maven
